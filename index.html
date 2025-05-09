@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Doto:wght@100..900&family=M+PLUS+Rounded+1c&family=Parkinsans:wght@300..800&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Space+Grotesk:wght@300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+    <title>Smart integer</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        
+        background-color: #d4d4d4;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        height: 70vh;
+        justify-content: center;
+        align-items: center;
+padding: 20px;
+       margin-top: 80px; 
+      
+    }
+
+    .inputs{
+        margin-top: 32px;
+        display: flex;
+        flex-direction: row;
+        gap: 56px;
+        flex-wrap: wrap;
+        
+    }
+
+    .input-box input{
+        padding: 10px;
+    }
+
+    .answer{
+        font-size: 2rem;
+        color: #000;
+        font-weight: bold;
+    }
+    
+    .answer-output{
+        margin-top: 60px;
+    }
+    
+    h1{
+        font-size: 2rem;
+        color: #003875;
+        font-weight: bold;
+        font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+    }
+
+    h3{
+       margin-bottom: 20px;
+       font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+    }
+
+    button{
+        padding: 10px 40px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        font-size: 1rem;
+        /* border-radius: 5px; */
+        cursor: pointer;
+        font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 500;
+  font-style: normal; 
+    }
+
+    button:hover{
+        background-color: #0056b3;
+    }
+    
+    button:active{
+        background-color: #004080;
+    }
+    button:focus{
+        outline: none;
+    }
+    .nav-bar{
+        width: 100%;
+        height: 10vh;
+        background-color: #2122241a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input {
+        
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        font-weight: 600;
+       text-align: center;
+       background-color: #ffffff;
+       /* border-radius: 5px; */
+         border: 3px solid #007bffc2;
+         font-size: 1rem;
+
+       
+    }
+
+    input::placeholder{
+        color: #3d3d3d6e;
+        
+    }
+
+    .output{
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        font-weight: 500;
+        font-size: 2rem;
+
+
+
+    }
+
+    #answer-output{
+        height: 100%;
+        width: 100%;
+        visibility: hidden;
+       
+        text-align: center;
+
+    }
+
+    .explanation{
+        /* margin-top: 50px; */
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        font-weight: 500;
+        font-size: .77rem;
+        text-align: center;
+    }
+    
+    footer{
+        
+        width: 100%;
+        font-weight: 500;
+        background-color: #2122241a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        text-align: center;
+    }
+
+    @media (max-width: 730px){
+
+        .container{
+           
+      
+            text-align: center;
+            margin: 50px 50px;
+        }
+
+        .inputs{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    @media (max-width: 340px) {
+        h1{
+            font-size: 1.7rem;
+            font-weight: 1500;
+        }
+
+        .output{
+            font-size: 1.5rem;
+        }
+
+        .container {
+            height: 80vh;
+        }
+    }
+
+    }
+</style>
+
+<body>
+    <nav class="nav-bar">
+        <h1>Power numbers</h1>
+    </nav>
+<div class="container">
+
+    <h3>This is a simple calculator that compares two numbers.</h3>
+
+    
+    <div class="inputs">
+        <div class="input-1 input-box">
+          
+            <input type="text"  placeholder="Bigger numb" id="input-1" class="textInput">
+
+        </div>
+
+        <div class="input-2 input-box">
+          
+            <input type="text" placeholder="Smaller numb" id="input-2" class="textInput">
+        </div>
+
+        <button id="btn">Calculate</button>
+    </div>
+
+        <p id="answer-output" class="output">
+            
+        </p>
+
+    <p class="explanation">Enter two numbers, and I'll tell you how many whole times the smaller fits into the bigger.
+    </p>
+   
+</div>
+
+
+<footer>
+    2025©Suuna Peter all rights reserved.
+</footer>
+ <script>
+
+
+    const input1 = document.getElementById("input-1");
+    const input2 = document.getElementById("input-2");
+    const buttonCalcu = document.getElementById("btn");
+    const answerOut = document.getElementById("answer-output");
+    const textInput = document.querySelectorAll(".textInput");
+
+    // Add event listener to clear result when input changes
+    textInput.forEach(input => {
+    input.addEventListener('input', () => {
+        answerOut.innerText = "";
+        answerOut.style.visibility= "visible"; // Hide the result
+    });
+});
+
+    // Add event listener to calculate result when button is clicked
+    buttonCalcu.addEventListener("click", calculateResult);
+
+    //Add event listener to calculate result when enter key is pressed
+    input2.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            calculateResult();
+        }
+    });
+
+    // Function to calculate the result
+    function calculateResult() {
+        const num1 = parseInt(input1.value);
+        const num2 = parseInt(input2.value);
+
+        // Validate inputs
+        if (isNaN(num1) || isNaN(num2)) {
+            answerOut.textContent = 'Please enter valid numbers.';
+            answerOut.style.visibility= "visible";
+            return;
+        }
+
+        // Check for division by zero or non-integer result
+        if (num2 === 0) {
+            answerOut.textContent = 'NONE';
+        } else {
+            const result = Math.floor(num1 / num2);
+           
+            // Check if the result is zero
+        if (result === 0) {
+            answerOut.textContent = 'NONE';
+        } else {
+            answerOut.textContent = `Result: ${result}`;
+        }
+        }
+
+     
+        answerOut.style.visibility= "visible";
+
+        // Clear inputs after 2 seconds
+        setTimeout(() => {
+            input1.value = "";
+            input2.value = "";
+        }, 2000);
+    }
+
+    // Add event listener to clear result when input changes
+
+
+ </script>
+    
+</body>
+</html>
